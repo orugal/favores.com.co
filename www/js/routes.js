@@ -86,6 +86,46 @@ angular.module('app.routes', [])
     }
   })
 
+  .state('menu.registro', {
+    url: '/page10',
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/registro.html',
+        controller: 'registroCtrl'
+      }
+    }
+  })
+
+  .state('menu.notificaciones', {
+    url: '/noti',
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/notificaciones.html',
+        controller: 'notificacionesCtrl'
+      }
+    }
+  })
+
+  .state('menu.descSol', {
+    url: '/descSol',
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/descSol.html',
+        controller: 'descSolCtrl'
+      }
+    }
+  })
+
+  .state('menu.favor', {
+    url: '/favor',
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/favor.html',
+        controller: 'favorCtrl'
+      }
+    }
+  })
+
   .state('menu.nUESTROSSERVICIOS', {
     url: '/page8',
     views: {

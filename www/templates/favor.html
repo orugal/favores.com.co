@@ -1,0 +1,37 @@
+<ion-view title='<center><img class="title-image" src="img/logoMini.png" style="width:40%;margin:4% 0 0 0"/></center>' id="favor"  hide-nav-bar="false">
+  <ion-content padding="true" class="has-header">
+
+    <div class="row">
+    <div class="col col-5"></div>
+    <div class="col col-90">
+
+    <form id="formRegistro" class="list">
+      <h3 style="color:#2B5BA7">SOLICITAR FAVOR</h3>
+      <ion-list id="login-list2">
+        <label class="item item-input" id="login-input1">
+          <select style="width: 100%;background: transparent;height:25px;border:none;box-shadow: none">
+            <option>Tipo de favor</option>
+            <option selected>Recogida</option>
+            <option>Acompañar</option>
+          </select>
+        </label>
+        <label class="item item-input" id="login-input2">
+          <input type="date" value='{{example | date: "yyyy-MM-dd"}}' />
+        </label>
+        <label class="item item-input" id="login-input2">
+          <input type="text" placeholder="Lugar" />
+        </label>
+        <label class="item item-input" id="login-input2">
+          <textarea placeholder="Escriba una breve descripción" rows="5"></textarea>
+        </label>
+        <ion-checkbox ng-model="filter.red">Acepto los términos</ion-checkbox>
+      </ion-list>
+      <div class="spacer" style="height: 40px;"></div>
+      <a ui-sref="menu.sERVICIOS" id="login-button1" class="button button-positive  button-block">SOLICITAR FAVOR</a>
+      <a ui-sref="menu.inicio" id="login-button2" class="button button-positive  button-block button-clear">CANCELAR</a>
+    </form>
+    </div>
+    <div class="col col-5"></div>
+  </div>
+  </ion-content>
+</ion-view>
