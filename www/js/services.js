@@ -1,6 +1,15 @@
 angular.module('app.services', [])
 
-.factory('BlankFactory', [function(){
+.factory('factory', [function(){
+
+	var paquete = 
+	{
+		validaSession:function(){
+			alert("Validando Sesión");
+		}
+	}
+
+	return paquete;
 
 }])
 
