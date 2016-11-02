@@ -136,7 +136,18 @@ angular.module('app.routes', [])
     }
   })
 
-$urlRouterProvider.otherwise('/side-menu21/page5')
+//valido la sessión, si la hay envió al home de la app, si no la hay envio al inicio
+var session = localStorage.getItem("id_usuario");
+if(session != undefined)
+{
+  $urlRouterProvider.otherwise('/side-menu21/page1')
+}
+else
+{
+  $urlRouterProvider.otherwise('/side-menu21/page5')
+}
+
+
 
   
 
