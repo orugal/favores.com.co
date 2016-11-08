@@ -160,21 +160,83 @@ function ($scope, $stateParams,$ionicLoading,funciones,$ionicPopup,$ionicLoading
 
 })
   
-.controller('sERVICIOSCtrl', ['$scope', '$stateParams','$ionicLoading','funciones', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+.controller('sERVICIOSCtrl', function ($scope,$http, $q, $stateParams,$state,$ionicLoading,funciones,$ionicPopup,$ionicLoading,$location){
 
 	$scope.mostrarMenu = 1;
-}])
+	$scope.listaServicios = [];
+
+	$scope.initServicios = function()
+	{
+		$scope.getServicios();
+	}
+	$scope.refreshServicios = function()
+	{
+		$scope.getServicios();
+		$scope.$broadcast('scroll.refreshComplete');
+	}
+	$scope.getServicios = function()
+	{
+		var parametros = "&accion=3";
+		funciones.consultaApi(funciones.urlAPi,parametros,function(json){
+			//realizo la validació
+			if(json.continuar == 1)
+			{
+				$scope.listaServicios  = json.datos;
+			}
+		},false,$ionicLoading)
+	}
+})
+
+
+.controller('detalleServicio', function ($scope,$http, $q, $stateParams,$state,$ionicLoading,$ionicHistory,funciones,$ionicPopup,$ionicLoading,$location) 
+{
+	$scope.dataServicio = [];
+	$scope.myGoBack = function() 
+	{
+	    $ionicHistory.goBack();
+	};
+
+
+	var parametros = "&accion=3&idServicio="+$stateParams.idServicio;
+	funciones.consultaApi(funciones.urlAPi,parametros,function(json){
+		//realizo la validació
+		if(json.continuar == 1)
+		{
+			$scope.dataServicio  = json.datos;
+			$scope.contenidoPanel  = json.datos[0].contenido
+		}
+	},true,$ionicLoading)
+	
+	//alert("dkfhsdkfjdhskf");
+})
    
-.controller('nUEVASOLICITUDCtrl', ['$scope', '$stateParams','$ionicLoading','funciones', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+.controller('nuevaSolicitud', function ($scope,$http, $q, $stateParams,$state,$ionicLoading,$ionicHistory,funciones,$ionicPopup,$ionicLoading,$location) {
 
+	$scope.listaServicios = [];
+	//alert("asdasd")
+	$scope.myGoBack = function() 
+	{
+	    $ionicHistory.goBack();
+	};
 
-}])
+	$scope.initSolicitudN = function()
+	{
+		$scope.getServicios();
+	}
+
+	$scope.getServicios = function()
+	{
+		var parametros = "&accion=3";
+		funciones.consultaApi(funciones.urlAPi,parametros,function(json){
+			//realizo la validació
+			if(json.continuar == 1)
+			{
+				$scope.listaServicios  = json.datos;
+			}
+		},false,$ionicLoading)
+	}
+
+})
    
 .controller('mISSOLICITUDESCtrl', ['$scope', '$stateParams','$ionicLoading','funciones', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
@@ -247,11 +309,5 @@ function ($scope, $stateParams) {
 
 }])
    
-.controller('nUESTROSSERVICIOSCtrl', ['$scope', '$stateParams','$ionicLoading','funciones', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
 
-
-}])
  

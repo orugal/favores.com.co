@@ -20,14 +20,10 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('menu.nUEVASOLICITUD', {
+  .state('nuevaSolicitud', {
     url: '/page2',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/nUEVASOLICITUD.html',
-        controller: 'nUEVASOLICITUDCtrl'
-      }
-    }
+    templateUrl: 'templates/favor.html',
+    controller: 'nuevaSolicitud'
   })
 
   .state('misolicitudes', {
@@ -78,6 +74,13 @@ angular.module('app.routes', [])
     templateUrl: 'templates/login.html',
     controller: 'loginCtrl'
   })
+
+  .state('detalleServicio', {
+    url: '/page8/:idServicio',
+    templateUrl: 'templates/nUESTROSSERVICIOS.html',
+    controller: 'detalleServicio'
+  })
+
 
   /*.state('menu.login', {
     url: '/page4',
@@ -139,7 +142,7 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('menu.nUESTROSSERVICIOS', {
+  /*.state('menu.nUESTROSSERVICIOS', {
     url: '/page8',
     views: {
       'side-menu21': {
@@ -147,7 +150,7 @@ angular.module('app.routes', [])
         controller: 'nUESTROSSERVICIOSCtrl'
       }
     }
-  })
+  })*/
 //localStorage.clear()
 //valido la sessión, si la hay envió al home de la app, si no la hay envio al inicio
 var session = localStorage.getItem("id_usuario");
