@@ -1,3 +1,4 @@
+var $ =jQuery.noConflict();
 angular.module('app.controllers', [])
   
 .controller('inicioCtrl', ['$scope', '$stateParams','$ionicLoading','funciones','$ionicPopup','$ionicLoading','$location', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -9,12 +10,29 @@ function ($scope, $stateParams,$ionicLoading,funciones,$ionicPopup,$ionicLoading
 
 }])
    
-.controller('registroCtrl', ['$scope', '$stateParams','$ionicLoading','funciones','$ionicPopup','$ionicLoading','$location', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams,$ionicLoading,funciones,$ionicPopup,$ionicLoading,$location) 
+.controller('registroCtrl',function ($scope, $http, $q, $stateParams,$state,$ionicLoading,funciones,$ionicPopup,$ionicLoading,$location) 
 {
 	$scope.mostrarMenu = 0;
+	$scope.initRegistro = function()
+	{
+		/*var parametros = "accion=0";
+		funciones.consultaApi(funciones.urlAPi,parametros,function(json){
+			//realizo la validació
+			if(json.continuar == 1)
+			{
+				funciones.popAlert("REGITRO DE USUARIO",json.mensaje,function(){
+					
+				},$ionicPopup);
+			}
+			else
+			{
+				funciones.popAlert("ERROR DE REGISTRO",json.mensaje,function(){
+
+				},$ionicPopup);
+			}
+		},true,$ionicLoading)*/
+	}
+
 	$scope.enviaRegistro = function()
 	{
 		//alert("Alerta!!");
@@ -71,10 +89,76 @@ function ($scope, $stateParams,$ionicLoading,funciones,$ionicPopup,$ionicLoading
 		}
 		else
 		{
-			alert("todo good");
+			//primedo realizo una confirmación
+			funciones.popConfirm("PROCESODE REGISTRO","Está a punto de crear un usuario para la aplicación Favores.com.co, desea confinuar",function(){
+				//procdeo a consular ajax para hacer la inserción del usuario nuevo
+				var parametros = $("#formRegistro").serialize()+"&accion=1";
+				funciones.consultaApi(funciones.urlAPi,parametros,function(json){
+					//realizo la validació
+					if(json.continuar == 1)
+					{
+						funciones.popAlert("REGISTRO DE USUARIO",json.mensaje,function(){
+							$state.go('login');
+						},$ionicPopup);
+					}
+					else
+					{
+						funciones.popAlert("ERROR DE REGISTRO",json.mensaje,function(){
+
+						},$ionicPopup);
+					}
+				},true,$ionicLoading)
+				
+			},$ionicPopup)
+
 		}
 	}
-}])
+})
+
+//controlador del login
+.controller('loginCtrl',function ($scope,$http, $q, $stateParams,$state,$ionicLoading,funciones,$ionicPopup,$ionicLoading,$location) 
+{
+	//alert("Alerta!!");
+	$scope.validaLogin = function()
+	{
+	 	$scope.username 	= $("#username").val();
+		$scope.contrasena 	= $("#contrasena").val();
+		var tituloPop	=	"COMPLETE LA INFORMACIÓN";
+
+		//inicio con la validación de 
+		if($scope.username == undefined || $scope.username == "")
+		{
+			funciones.popAlert(tituloPop,"Debe escribir su nombre de usuario",function(){},$ionicPopup);
+		}
+		else if($scope.contrasena == undefined || $scope.contrasena == "")
+		{
+			funciones.popAlert(tituloPop,"Debe escribir su contraseña de acceso",function(){},$ionicPopup);
+		}
+		else
+		{
+			//procdeo a consular ajax para hacer la inserción del usuario nuevo
+			var parametros = $("#formLogin").serialize()+"&accion=2";
+			funciones.consultaApi(funciones.urlAPi,parametros,function(json){
+				//realizo la validació
+				if(json.continuar == 1)
+				{
+					funciones.popAlert("REGISTRO DE USUARIO",json.mensaje,function(){
+						//debo enrutar al inicio de la app y levantar la sessión
+						localStorage.setItem("id_usuario",json.idusuario)
+						$state.go('menu.sERVICIOS');
+					},$ionicPopup);
+				}
+				else
+				{
+					funciones.popAlert("ERROR DE REGISTRO",json.mensaje,function(){
+
+					},$ionicPopup);
+				}
+			},true,$ionicLoading)
+		}
+	}
+
+})
   
 .controller('sERVICIOSCtrl', ['$scope', '$stateParams','$ionicLoading','funciones', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
@@ -116,22 +200,28 @@ function ($scope, $stateParams) {
 
 }])
    
-.controller('menuCtrl', ['$scope', '$stateParams','$ionicLoading','funciones', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) 
+.controller('menuCtrl',function ($scope,$http, $q, $stateParams,$state,$ionicLoading,funciones,$ionicPopup,$ionicLoading,$location) 
 {
 	$scope.mostrarMenu = 0;
+	var session = localStorage.getItem("id_usuario");
+	if(session == undefined)
+	{
+	 	$state.go('inicio');
+	}
+	else
+	{
+		//alert("hay sesion");
+	}
 
-}])
-   
-.controller('loginCtrl', ['$scope', '$stateParams','$ionicLoading','funciones', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+	$scope.cerrarSession = function()
+	{
+		funciones.popConfirm("CERRAR SESIÓN","Está seguro que quiere salir de la aplicación, dejará de recibir notificaciones, desea confinuar",function(){
+			localStorage.clear();
+			$state.go('inicio');
+		},$ionicPopup);
+	}
 
-
-}])
+})
 .controller('favorCtrl', ['$scope', '$stateParams','$ionicLoading','funciones', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName

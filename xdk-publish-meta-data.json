@@ -3,26 +3,12 @@
   "description": {
     "texts": {
       "title": "",
-      "features": [
-        ""
-      ],
-      "short-description": "",
-      "full-description": "",
-      "keywords": "",
-      "recent-changes": "",
-      "privacy-policy": "",
-      "eula": ""
+      "features": []
     },
     "images": {
-      "screenshots": [],
-      "app-icon-small": "",
-      "app-icon": "",
-      "small-promo": "",
-      "large-promo": ""
+      "screenshots": []
     },
-    "videos": {
-      "video-url": ""
-    }
+    "videos": {}
   },
   "packages": {},
   "support": {}

@@ -3,6 +3,8 @@ angular.module('app.services', [])
 .factory('funciones', [function()
 {
 	var paquete = {
+		urlAPi:"http://192.168.0.14/favores.com.co/api/index.php",
+		urlWeb:"http://192.168.0.14/favores.com.co/",
 		validaSesion:function()
 		{
 			var salida  = false;
@@ -20,35 +22,38 @@ angular.module('app.services', [])
 		consultaApi:function(url,parametros,callback,mostrar,ionicLoading)
 		{
 		    //la variable callback es una funcion que esta creada, esto es para que el ajax responda a esta función y ud haga lo que quiera dentro de ella y no tener que hacer nada dentro del succes del ajax y que esta función quede como standar
-		    $.ajax({
+		    $.ajax({									
 		          url: url,
 		          data: parametros,
 		          type: "POST",
 		          dataType: "json",
-		          beforeSend:function()
+		          beforeSend:function(request)
 		          {
 		             if(mostrar)
 		             {
-		             	paquete.preloader("Un momento por favor",function(){},ionicLoading);
+		             	//alert("farez prieto")
+		             	ionicLoading.show({
+			              template: 'Un momento por favor...'
+			              });
 		             }
 		          },
 		          success:function(data)
 		          {
-		            callback(data);
+		          	if(mostrar)
+		            {
+			          	ionicLoading.hide();
+			          	callback(data);
+			        }
+			        else
+			        {
+			        	callback(data);
+			        }
 		          },
 		          error:function(e) 
 		          {
 		              //$("#ERRORES").html(e.statusText + e.status + e.responseText);
 		          }
 		    });
-		},
-		preloader:function(texto,callback,ionicLoading)
-		{
-			ionicLoading.show({
-                template: texto
-                }).then(function(){
-                   //console.log("The loading indicator is now displayed");
-              });
 		},
 		popAlert:function(titulo,mensaje,callback,ionicPopup)
 		{

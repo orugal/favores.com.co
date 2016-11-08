@@ -30,14 +30,10 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('menu.mISSOLICITUDES', {
+  .state('misolicitudes', {
     url: '/page3',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/mISSOLICITUDES.html',
-        controller: 'mISSOLICITUDESCtrl'
-      }
-    }
+    templateUrl: 'templates/mISSOLICITUDES.html',
+    controller: 'mISSOLICITUDESCtrl'
   })
 
   .state('menu.eDITARINFORMACIN', {
@@ -66,7 +62,24 @@ angular.module('app.routes', [])
     controller: 'menuCtrl'
   })
 
-  .state('menu.login', {
+  .state('inicio', {
+    url: '/page5',
+    templateUrl: 'templates/inicio.html',
+    controller: 'inicioCtrl'
+  })
+  .state('registro', {
+    url: '/page10',
+    templateUrl: 'templates/registro.html',
+    controller: 'registroCtrl'
+  })
+
+  .state('login', {
+    url: '/page4',
+    templateUrl: 'templates/login.html',
+    controller: 'loginCtrl'
+  })
+
+  /*.state('menu.login', {
     url: '/page4',
     views: {
       'side-menu21': {
@@ -74,9 +87,9 @@ angular.module('app.routes', [])
         controller: 'loginCtrl'
       }
     }
-  })
+  })*/
 
-  .state('menu.inicio', {
+  /*.state('menu.inicio', {
     url: '/page5',
     views: {
       'side-menu21': {
@@ -84,9 +97,9 @@ angular.module('app.routes', [])
         controller: 'inicioCtrl'
       }
     }
-  })
+  })*/
 
-  .state('menu.registro', {
+  /*.state('menu.registro', {
     url: '/page10',
     views: {
       'side-menu21': {
@@ -94,7 +107,7 @@ angular.module('app.routes', [])
         controller: 'registroCtrl'
       }
     }
-  })
+  })*/
 
   .state('menu.notificaciones', {
     url: '/noti',
@@ -135,7 +148,7 @@ angular.module('app.routes', [])
       }
     }
   })
-
+//localStorage.clear()
 //valido la sessión, si la hay envió al home de la app, si no la hay envio al inicio
 var session = localStorage.getItem("id_usuario");
 if(session != undefined)
@@ -144,7 +157,7 @@ if(session != undefined)
 }
 else
 {
-  $urlRouterProvider.otherwise('/side-menu21/page5')
+  $urlRouterProvider.otherwise('/page5')
 }
 
 
