@@ -144,7 +144,7 @@ function ($scope, $stateParams,$ionicLoading,funciones,$ionicPopup,$ionicLoading
 				{
 					funciones.popAlert("REGISTRO DE USUARIO",json.mensaje,function(){
 						//debo enrutar al inicio de la app y levantar la sessión
-						localStorage.setItem("id_usuario",json.idusuario)
+						localStorage["id_usuario"] = json.datos.idusuario;
 						$state.go('menu.sERVICIOS');
 					},$ionicPopup);
 				}
@@ -216,8 +216,9 @@ function ($scope, $stateParams,$ionicLoading,funciones,$ionicPopup,$ionicLoading
 	//alert("asdasd")
 	$scope.myGoBack = function() 
 	{
+		//alert("lkdflksdfj");
 	    $ionicHistory.goBack();
-	};
+	}
 
 	$scope.initSolicitudN = function()
 	{
@@ -233,7 +234,19 @@ function ($scope, $stateParams,$ionicLoading,funciones,$ionicPopup,$ionicLoading
 			{
 				$scope.listaServicios  = json.datos;
 			}
-		},false,$ionicLoading)
+		},true,$ionicLoading)
+	}
+
+	$scope.poneFormulario = function(id)
+	{
+		var idSel	=	$("#servicio").find(':selected').val();
+		var dataSel	=	$("#servicio").find(':selected').data('form')
+		var ejemplo	=	$("#servicio").find(':selected').data('ejemplo')
+		//habilito el formulario necesario
+		$(".forms").hide();
+		$("#ejemplo").html("");
+		$("#ejemplo").html("Ej: "+ejemplo);
+		$("#form"+dataSel).fadeIn();
 	}
 
 })
@@ -265,16 +278,24 @@ function ($scope, $stateParams) {
 .controller('menuCtrl',function ($scope,$http, $q, $stateParams,$state,$ionicLoading,funciones,$ionicPopup,$ionicLoading,$location) 
 {
 	$scope.mostrarMenu = 0;
-	var session = localStorage.getItem("id_usuario");
-	if(session == undefined)
-	{
-	 	$state.go('inicio');
-	}
-	else
-	{
-		//alert("hay sesion");
-	}
+	$scope.dataUsuario = []
+	
+	var session = localStorage["id_usuario"];
+	
 
+	$scope.initMenu = function()
+	{
+		if(session == undefined)
+		{
+		 	$state.go('inicio');
+		}
+		else
+		{
+			//alert(session)
+			//alert("hay sesion");
+		}
+		$scope.consultaInfoUsuario();
+	}
 	$scope.cerrarSession = function()
 	{
 		funciones.popConfirm("CERRAR SESIÓN","Está seguro que quiere salir de la aplicación, dejará de recibir notificaciones, desea confinuar",function(){
@@ -283,15 +304,33 @@ function ($scope, $stateParams) {
 		},$ionicPopup);
 	}
 
+	$scope.consultaInfoUsuario = function()
+	{
+		var parametros = "accion=4&idusuario="+session;
+		funciones.consultaApi(funciones.urlAPi,parametros,function(json){
+			//realizo la validació
+			if(json.continuar == 1)
+			{
+				$scope.dataUsuario  = json.datos;
+				$scope.$digest();
+			}
+		},true,$ionicLoading)
+	}
+
 })
-.controller('favorCtrl', ['$scope', '$stateParams','$ionicLoading','funciones', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+.controller('favorCtrl', function ($scope,$http, $q, $stateParams,$state,$ionicLoading,funciones,$ionicPopup,$ionicLoading,$location) 
+{
 
-	//alert("lsdkfhksdfsdklfhjkl");
+	$scope.initFavor = function()
+	{
+		alert("llega")
+	}
+	$scope.poneFormulario = function()
+	{
+		alert("jsdkjsadk");
+	}
 
-}])
+})
    
 .controller('descSolCtrl', ['$scope', '$stateParams','$ionicLoading','funciones', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function

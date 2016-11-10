@@ -3,8 +3,8 @@ angular.module('app.services', [])
 .factory('funciones', [function()
 {
 	var paquete = {
-		urlAPi:"http://192.168.0.12:8081/webFavores.com.co/api/index.php",
-		urlWeb:"http://192.168.0.12:8081/webFavores.com.co/",
+		urlAPi:"http://www.wannabe.com.co/favores.com.co/api/index.php",
+		urlWeb:"http://www.wannabe.com.co/favores.com.co/",
 		validaSesion:function()
 		{
 			var salida  = false;

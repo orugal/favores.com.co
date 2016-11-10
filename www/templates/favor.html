@@ -20,13 +20,14 @@
         <ion-list id="login-list2">
           <p><center>Seleccione el tipo de favor que desea solicitar.</center></p>
           <label class="item item-input" id="login-input1">
-            <select style="width: 100%;background: transparent;height:25px;border:none;box-shadow: none">
+            <select style="width: 100%;background: transparent;height:25px;border:none;box-shadow: none" ng-model="servicio" id="servicio" name="servicio" ng-change="poneFormulario()">
               <option value="">Tipo de favor</option>
-              <option ng-repeat="servi in listaServicios" value="{{servi.id}}" style="text-transform: uppercase">{{servi.titulo}}</option>
+              <option ng-repeat="servi in listaServicios" value="{{servi.id}}" data-form="{{servi.iva}}" data-ejemplo="{{servi.ejemplo}}"  style="text-transform: uppercase">{{servi.titulo}}</option>
             </select>
           </label>
-
-          <div class="form1" style="float:left;width:100%;margin:5% 0 0 0">
+          <p id="ejemplo" style="padding:2%"></p>
+          <!-- Formulario sin origen ni destino-->
+          <div class="forms" id="form1" style="float:left;width:100%;margin:5% 0 0 0;display: none">
               <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
                 <span class="input-label">Fecha y hora</span>
                 <input type="date" />
@@ -35,27 +36,116 @@
                 <span class="input-label">Especifique los detalles del favor</span>
                 <textarea placeholder="Escriba una breve descripción" rows="5"></textarea>
               </label>
+              <div class="spacer" style="height: 40px;"></div>
+              <a ui-sref="menu.sERVICIOS" id="login-button1" class="button button-positive  button-block">SOLICITAR FAVOR</a>
+              <a ui-sref="menu.inicio" id="login-button2" class="button button-positive  button-block button-clear">CANCELAR</a>
           </div>
 
-          <!--
-          <div class="form1" style="float:left;width:100%;display:none"></div>
-          <div class="form1" style="float:left;width:100%;display:none"></div>
+          <!-- Formulario con datos de origen-->
+          <div class="forms" id="form2" style="float:left;width:100%;margin:5% 0 0 0;display:none">
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Fecha y hora</span>
+                <input type="date" />
+              </label>
 
-          <label class="item item-input" id="login-input2">
-            <input type="date" value='{{example | date: "yyyy-MM-dd"}}' />
-          </label>
-          <label class="item item-input" id="login-input2">
-            <input type="text" placeholder="Lugar" />
-          </label>
-          <label class="item item-input" id="login-input2">
-            <textarea placeholder="Escriba una breve descripción" rows="5"></textarea>
-          </label>
-          <ion-checkbox ng-model="filter.red">Acepto los términos</ion-checkbox>-->
+              <h5 style="color:#2B5BA7;text-align: center">DATOS DE ORIGEN</h5>
+              <p><center>Entíendase por datos de origen aquellos que nos permiten saber a donde debemos llegar para recoger, recibir o asistir para prestar el favor.</center></p>
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Dirección</span>
+                <input type="text" name="direccioOrigen" id="direccioOrigen" ng-model="direccioOrigen"/>
+              </label>
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Contacto</span>
+                <input type="text" name="contactoOrigen" id="contactoOrigen" ng-model="contactoOrigen"/>
+              </label>
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Teléfono</span>
+                <input type="text" name="telefonoOrigen" id="telefonoOrigen" ng-model="telefonoOrigen"/>
+              </label>
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Especifique los detalles del favor</span>
+                <textarea placeholder="Escriba una breve descripción" rows="5"></textarea>
+              </label>
+              <div class="spacer" style="height: 40px;"></div>
+              <a ui-sref="menu.sERVICIOS" id="login-button1" class="button button-positive  button-block">SOLICITAR FAVOR</a>
+              <a ui-sref="menu.inicio" id="login-button2" class="button button-positive  button-block button-clear">CANCELAR</a>
+          </div>
+
+          <!-- Formulario con datos de destino-->
+          <div class="forms" id="form3" style="float:left;width:100%;margin:5% 0 0 0;display:none">
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Fecha y hora</span>
+                <input type="date" />
+              </label>
+               <h5 style="color:#2B5BA7;text-align: center">DATOS DE DESTINO</h5>
+              <p><center>Entíendase por datos de destino aquellos que nos permiten saber a donde debemos finalizar el favor que solicite.</center></p>
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Dirección</span>
+                <input type="text" name="direccioDestino" id="direccioDestino" ng-model="direccioDestino"/>
+              </label>
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Contacto</span>
+                <input type="text" name="contactoDestino" id="contactoDestino" ng-model="contactoDestino"/>
+              </label>
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Teléfono de contacto</span>
+                <input type="text" name="telefonoDestino" id="telefonoDestino" ng-model="telefonoDestino"/>
+              </label>
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Especifique los detalles del favor</span>
+                <textarea placeholder="Escriba una breve descripción" rows="5"></textarea>
+              </label>
+              <div class="spacer" style="height: 40px;"></div>
+              <a ui-sref="menu.sERVICIOS" id="login-button1" class="button button-positive  button-block">SOLICITAR FAVOR</a>
+              <a ui-sref="menu.inicio" id="login-button2" class="button button-positive  button-block button-clear">CANCELAR</a>
+          </div>
+
+          <!-- Formulario con datos y destino-->
+          <div class="forms" id="form4" style="float:left;width:100%;margin:5% 0 0 0;display:none">
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Fecha y hora</span>
+                <input type="date" />
+              </label>
+
+              <h5 style="color:#2B5BA7;text-align: center">DATOS DE ORIGEN</h5>
+              <p><center>Entíendase por datos de origen aquellos que nos permiten saber a donde debemos llegar para recoger, recibir o asistir para prestar el favor.</center></p>
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Dirección</span>
+                <input type="text" name="direccioOrigen" id="direccioOrigen" ng-model="direccioOrigen"/>
+              </label>
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Contacto</span>
+                <input type="text" name="contactoOrigen" id="contactoOrigen" ng-model="contactoOrigen"/>
+              </label>
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Teléfono de contacto</span>
+                <input type="text" name="telefonoOrigen" id="telefonoOrigen" ng-model="telefonoOrigen"/>
+              </label>
+
+              <h5 style="color:#2B5BA7;text-align: center">DATOS DE DESTINO</h5>
+              <p><center>Entíendase por datos de destino aquellos que nos permiten saber a donde debemos finalizar el favor que solicite.</center></p>
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Dirección</span>
+                <input type="text" name="direccioDestino" id="direccioDestino" ng-model="direccioDestino"/>
+              </label>
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Contacto</span>
+                <input type="text" name="contactoDestino" id="contactoDestino" ng-model="contactoDestino"/>
+              </label>
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Teléfono de contacto</span>
+                <input type="text" name="telefonoDestino" id="telefonoDestino" ng-model="telefonoDestino"/>
+              </label>
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Especifique los detalles del favor</span>
+                <textarea placeholder="Escriba una breve descripción" rows="5"></textarea>
+              </label>
+              <div class="spacer" style="height: 40px;"></div>
+              <a ui-sref="menu.sERVICIOS" id="login-button1" class="button button-positive  button-block">SOLICITAR FAVOR</a>
+              <a ui-sref="menu.inicio" id="login-button2" class="button button-positive  button-block button-clear">CANCELAR</a>
+          </div>
 
         </ion-list>
-        <div class="spacer" style="height: 40px;"></div>
-        <a ui-sref="menu.sERVICIOS" id="login-button1" class="button button-positive  button-block">SOLICITAR FAVOR</a>
-        <a ui-sref="menu.inicio" id="login-button2" class="button button-positive  button-block button-clear">CANCELAR</a>
       </form>
       </div>
       <div class="col col-5"></div>

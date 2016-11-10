@@ -153,7 +153,7 @@ angular.module('app.routes', [])
   })*/
 //localStorage.clear()
 //valido la sessión, si la hay envió al home de la app, si no la hay envio al inicio
-var session = localStorage.getItem("id_usuario");
+var session = localStorage["id_usuario"];
 if(session != undefined)
 {
   $urlRouterProvider.otherwise('/side-menu21/page1')

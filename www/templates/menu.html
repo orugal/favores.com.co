@@ -1,4 +1,4 @@
-<ion-side-menus enable-menu-with-back-views="true">
+<ion-side-menus enable-menu-with-back-views="true" ng-init="initMenu()">
   <ion-side-menu-content>
     <ion-nav-bar class="bar-positive">
       <!--<ion-nav-back-button></ion-nav-back-button>-->
@@ -16,9 +16,9 @@
     <ion-content padding="false" class="side-menu-left">
       <div class="list">
           <a class="item item-avatar" href="#">
-            <img src="img/mike.png">
-            <h2>Farez Prieto</h2>
-            <p>kyo20052@gmail.com</p>
+            <img src="img/user.jpg">
+            <h2>{{dataUsuario.nombres}}</h2>
+            <p>{{dataUsuario.email}}</p>
           </a>
       </div>
       <ul class="list">
