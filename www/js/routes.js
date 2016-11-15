@@ -29,7 +29,7 @@ angular.module('app.routes', [])
   .state('misolicitudes', {
     url: '/page3',
     templateUrl: 'templates/mISSOLICITUDES.html',
-    controller: 'mISSOLICITUDESCtrl'
+    controller: 'missolicitudes'
   })
 
   .state('menu.eDITARINFORMACIN', {
@@ -81,6 +81,11 @@ angular.module('app.routes', [])
     controller: 'detalleServicio'
   })
 
+  .state('detalleSolicitud', {
+    url: '/descSol/:solicitud',
+    templateUrl: 'templates/descSol.html',
+    controller: 'descSolCtrl'
+  })
 
   /*.state('menu.login', {
     url: '/page4',
@@ -122,7 +127,7 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('menu.descSol', {
+ /* .state('menu.descSol', {
     url: '/descSol',
     views: {
       'side-menu21': {
@@ -130,7 +135,7 @@ angular.module('app.routes', [])
         controller: 'descSolCtrl'
       }
     }
-  })
+  })*/
 
   .state('menu.favor', {
     url: '/favor',

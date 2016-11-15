@@ -214,9 +214,9 @@ function ($scope, $stateParams,$ionicLoading,funciones,$ionicPopup,$ionicLoading
 
 	$scope.listaServicios = [];
 	//alert("asdasd")
-	$scope.myGoBack = function() 
+	$scope.volver = function() 
 	{
-		//alert("lkdflksdfj");
+		alert("lkdflksdfj");
 	    $ionicHistory.goBack();
 	}
 
@@ -247,17 +247,147 @@ function ($scope, $stateParams,$ionicLoading,funciones,$ionicPopup,$ionicLoading
 		$("#ejemplo").html("");
 		$("#ejemplo").html("Ej: "+ejemplo);
 		$("#form"+dataSel).fadeIn();
+		$("#formCaja").val(dataSel);
+	}
+
+	$scope.saveSolicitud = function()
+	{
+		//alert("Asdasdsad")
+		var servicio 		= 	$("#servicio").val();
+		var form 			= 	$("#formCaja").val();
+		var fecha			=	$("#fecha").val();
+		var hora			=	$("#hora").val();
+		var direccion1 	 	= $("#direccion1").val();
+		var persona1  		= $("#persona1").val();
+		var telefono1  		= $("#telefono1").val();
+		var contenidoFavor	=	$("#contenidoFavor").val();
+		var formCompleto 	=	false;
+		var tituloPop		=	"Formulario solicitud";
+		var session 		= localStorage["id_usuario"];
+
+		//valido el formulario para saber que validaciones debo hacer
+		if(form == 1)//formulario sencillo
+		{
+			//valido campos
+			if(fecha == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Seleccione la fecha del favor",function(){},$ionicPopup);
+			}
+			else if(hora == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Seleccione la hora del favor",function(){},$ionicPopup);
+			}
+			else if(contenidoFavor == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Especifique con detalles el favor que desea que relicemos",function(){},$ionicPopup);
+			}
+			else
+			{
+				formCompleto 	=	true;
+				var parametros = "form="+form+"&accion=6&fecha="+fecha+"&texto="+contenidoFavor+"&usuario="+session+"&servicio="+servicio;
+			}
+		}
+		else if(form == 2)//solo datos de origen
+		{
+			if(fecha == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Seleccione la fecha del favor",function(){},$ionicPopup);
+			}
+		}
+
+
+		//valido si el formulario está completo para el envio
+		if(formCompleto)
+		{
+
+			funciones.popConfirm("CONFIRMACIÓN","Está a punto de enviar una solicitud con la información ingresada, desea confinuar",function(){
+					funciones.consultaApi(funciones.urlAPi,parametros,function(json){
+						//realizo la validació
+						if(json.continuar == 1)
+						{
+							funciones.popAlert("SOLICITUD EXITOSA",json.mensaje,function(){
+								$state.go('misolicitudes');
+							},$ionicPopup);
+						}
+						else
+						{
+							funciones.popAlert("ERROR DE SOLICITUD",json.mensaje,function(){},$ionicPopup);
+						}
+					},true,$ionicLoading)
+			},$ionicPopup);
+
+			
+		}
 	}
 
 })
    
-.controller('mISSOLICITUDESCtrl', ['$scope', '$stateParams','$ionicLoading','funciones', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+.controller('missolicitudes', function ($scope,$http, $q, $stateParams,$state,$ionicLoading,$ionicHistory,funciones,$ionicPopup,$ionicLoading,$location) 
+{
+
+	$scope.listaSolicitudes = [];
+	var session = localStorage["id_usuario"];
+	$scope.initSolicitudes = function()
+	{
+		$scope.getSolicitudes();
+	}
+	$scope.refreshSolicitudes = function()
+	{
+		$scope.getSolicitudes();
+		$scope.$broadcast('scroll.refreshComplete');
+	}
+	$scope.getSolicitudes = function()
+	{
+		
+		var parametros = "&accion=5&usuario="+session;
+		funciones.consultaApi(funciones.urlAPi,parametros,function(json){
+			//realizo la validació
+			if(json.continuar == 1)
+			{
+				$scope.listaSolicitudes  = json.datos;
+			}
+		},true,$ionicLoading)
+	}
+})
 
 
-}])
+.controller('descSolCtrl', function ($scope,$http, $q, $stateParams,$state,$ionicLoading,$ionicHistory,funciones,$ionicPopup,$ionicLoading,$location) 
+{
+	$scope.dataSolicitud = [];
+	var session = localStorage["id_usuario"];
+	$scope.myGoBack = function() 
+	{
+	    $ionicHistory.goBack();
+	};
+
+	$scope.initDetalleSolicitud = function()
+	{
+		$scope.getInfoSolicitud();
+	}
+
+	$scope.refreshSolicitudes = function()
+	{
+		$scope.getInfoSolicitud();
+		$scope.$broadcast('scroll.refreshComplete');
+	}
+
+	$scope.getInfoSolicitud = function()
+	{
+		var parametros = "accion=5&idSolicitud="+$stateParams.solicitud+"&usuario="+session;
+		funciones.consultaApi(funciones.urlAPi,parametros,function(json){
+			//realizo la validació
+			if(json.continuar == 1)
+			{
+				$scope.dataSolicitud  = json.datos[0];
+			}
+		},true,$ionicLoading)
+	}
+
+	
+
+})
+
+
    
 .controller('eDITARINFORMACINCtrl', ['$scope', '$stateParams','$ionicLoading','funciones', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
@@ -332,13 +462,7 @@ function ($scope, $stateParams) {
 
 })
    
-.controller('descSolCtrl', ['$scope', '$stateParams','$ionicLoading','funciones', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
 
-
-}])
    
 .controller('notificacionesCtrl', ['$scope', '$stateParams','$ionicLoading','funciones', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function

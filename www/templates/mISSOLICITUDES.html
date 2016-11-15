@@ -1,4 +1,5 @@
-<ion-view id="page3" title='<center>MIS SOLICITUDES</center>' left-buttons="leftButtons" right-buttons="rightButtons" hide-back-button="false">
+<ion-view id="page3" title='<center>MIS SOLICITUDES</center>' ng-init="initSolicitudes()" left-buttons="leftButtons" right-buttons="rightButtons" hide-back-button="false">
+
   <ion-nav-bar class="bar-positive">
       <!--<ion-nav-back-button></ion-nav-back-button>-->
       <ion-nav-buttons side="left">
@@ -9,47 +10,21 @@
       </ion-nav-buttons>
     </ion-nav-bar>
   <ion-content padding="false" class="has-header">
+  <ion-refresher
+    pulling-text="Desliza para actualizar..."
+    on-refresh="refreshSolicitudes()">
+  </ion-refresher>
   	<ul class="list">
-	    <a class="item" ui-sref="menu.descSol" style="border:none">
-	      <h2 style="font-weight: bold">Pago de servicio público <ion-badge style="float:right">01</ion-badge></h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore </p>
+
+	    <a class="item" ng-repeat="lista in listaSolicitudes" ui-sref="detalleSolicitud({solicitud:lista.idSolicitud})" style="border:none" >
+	      <h2 style="font-weight: bold">{{lista.servicio}} <ion-badge style="float:right">{{lista.idSolicitud}}</ion-badge></h2>
+          <p>{{lista.texto}}</p>
            <div class="row">
-    		<div class="col col-50" style="padding:0;font-size:0.9em;text-align: left;color:#387EF5">Aprobado</div>
-    		<div class="col col-50" style="padding:0;font-size:0.9em;text-align: right;">24 de Octubre 2016</div>
+    		<div class="col col-50" style="padding:0;font-size:0.9em;text-align: left;color:#387EF5">{{lista.estado}}</div>
+    		<div class="col col-50" style="padding:0;font-size:0.9em;text-align: right;">{{lista.fechaFavor}}</div>
     	   </div>	
 	    </a>
-	    <a class="item" ui-sref="menu.descSol" style="border:none">
-	      <h2 style="font-weight: bold">Pago de servicio público <ion-badge style="float:right">01</ion-badge></h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore </p>
-           <div class="row">
-    		<div class="col col-50" style="padding:0;font-size:0.9em;text-align: left;color:#387EF5">Aprobado</div>
-    		<div class="col col-50" style="padding:0;font-size:0.9em;text-align: right;">24 de Octubre 2016</div>
-    	   </div>
-	    </a>
-	    <a class="item" ui-sref="menu.descSol" style="border:none">
-	      <h2 style="font-weight: bold">Pago de servicio público <ion-badge style="float:right">01</ion-badge></h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore </p>
-           <div class="row">
-    		<div class="col col-50" style="padding:0;font-size:0.9em;text-align: left;color:#387EF5">Aprobado</div>
-    		<div class="col col-50" style="padding:0;font-size:0.9em;text-align: right;">24 de Octubre 2016</div>
-    	   </div>
-	    </a>
-	    <a class="item" ui-sref="menu.descSol" style="border:none">
-	      <h2 style="font-weight: bold">Pago de servicio público <ion-badge style="float:right">01</ion-badge></h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore </p>
-           <div class="row">
-    		<div class="col col-50" style="padding:0;font-size:0.9em;text-align: left;color:#387EF5">Aprobado</div>
-    		<div class="col col-50" style="padding:0;font-size:0.9em;text-align: right;">24 de Octubre 2016</div>
-    	   </div>
-	    </a>
-	    <a class="item" ui-sref="menu.descSol" style="border:none">
-	      <h2 style="font-weight: bold">Pago de servicio público <ion-badge style="float:right">01</ion-badge></h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore </p>
-           <div class="row">
-    		<div class="col col-50" style="padding:0;font-size:0.9em;text-align: left;color:#387EF5">Aprobado</div>
-    		<div class="col col-50" style="padding:0;font-size:0.9em;text-align: right;">24 de Octubre 2016</div>
-    	   </div>
-	    </a>
+
 	</ul>
   </ion-content>
 </ion-view>
