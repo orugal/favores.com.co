@@ -255,12 +255,7 @@ function ($scope, $stateParams,$ionicLoading,funciones,$ionicPopup,$ionicLoading
 		//alert("Asdasdsad")
 		var servicio 		= 	$("#servicio").val();
 		var form 			= 	$("#formCaja").val();
-		var fecha			=	$("#fecha").val();
-		var hora			=	$("#hora").val();
-		var direccion1 	 	= $("#direccion1").val();
-		var persona1  		= $("#persona1").val();
-		var telefono1  		= $("#telefono1").val();
-		var contenidoFavor	=	$("#contenidoFavor").val();
+		
 		var formCompleto 	=	false;
 		var tituloPop		=	"Formulario solicitud";
 		var session 		= localStorage["id_usuario"];
@@ -268,6 +263,9 @@ function ($scope, $stateParams,$ionicLoading,funciones,$ionicPopup,$ionicLoading
 		//valido el formulario para saber que validaciones debo hacer
 		if(form == 1)//formulario sencillo
 		{
+			var fecha			=	$("#fecha").val();
+			var hora			=	$("#hora").val();
+			var contenidoFavor	=	$("#contenidoFavor").val();
 			//valido campos
 			if(fecha == "")
 			{
@@ -289,9 +287,37 @@ function ($scope, $stateParams,$ionicLoading,funciones,$ionicPopup,$ionicLoading
 		}
 		else if(form == 2)//solo datos de origen
 		{
+			var fecha			=	$("#fecha2").val();
+			var hora			=	$("#hora").val();
+			var contenidoFavor	=	$("#contenidoFavor2").val();
+			var direccion1 	 	= 	$("#direccion1").val();
+			var persona1  		= 	$("#persona1").val();
+			var telefono1  		= 	$("#telefono1").val();
+
 			if(fecha == "")
 			{
 				funciones.popAlert("Formulario de solicitud","Seleccione la fecha del favor",function(){},$ionicPopup);
+			}
+			else if(direccion1 == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Por favor escriba la dirección de origen.",function(){},$ionicPopup);
+			}
+			else if(persona1 == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Por favor escriba el nombre del contacto con el que debemos comunicarnos.",function(){},$ionicPopup);
+			}
+			else if(telefono1 == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Por favor escriba un número de teléfono de contacto.",function(){},$ionicPopup);
+			}
+			else if(contenidoFavor == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Especifique con detalles el favor que desea que relicemos",function(){},$ionicPopup);
+			}
+			else
+			{
+				formCompleto 	=	true;
+				var parametros = "form="+form+"&accion=6&fecha="+fecha+"&texto="+contenidoFavor+"&usuario="+session+"&servicio="+servicio+"&direccion1="+direccion1+"&persona1="+persona1+"&telefono1="+telefono1;
 			}
 		}
 
