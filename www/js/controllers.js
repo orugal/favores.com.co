@@ -210,13 +210,13 @@ function ($scope, $stateParams,$ionicLoading,funciones,$ionicPopup,$ionicLoading
 	//alert("dkfhsdkfjdhskf");
 })
    
-.controller('nuevaSolicitud', function ($scope,$http, $q, $stateParams,$state,$ionicLoading,$ionicHistory,funciones,$ionicPopup,$ionicLoading,$location) {
+.controller('nuevaSolicitud', function ($scope,$http, $q, $stateParams,$state,$ionicLoading,$ionicHistory,funciones,$ionicPopup,$ionicLoading,$location,ionicTimePicker) 
+{
 
 	$scope.listaServicios = [];
-	//alert("asdasd")
 	$scope.volver = function() 
 	{
-		alert("lkdflksdfj");
+	//	$scope.compileAngularElement("#page8");
 	    $ionicHistory.goBack();
 	}
 
@@ -224,6 +224,26 @@ function ($scope, $stateParams,$ionicLoading,funciones,$ionicPopup,$ionicLoading
 	{
 		$scope.getServicios();
 	}
+
+	$scope.openTimePicker1 = function (caja) {
+      var ipObj1 = {
+        callback: function (val) {
+          if (typeof (val) === 'undefined') {
+            console.log('Time not selected');
+          } else {
+            var selectedTime = new Date(val * 1000);
+            //console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
+            var min = (selectedTime.getUTCMinutes() == 0)?"00":selectedTime.getUTCMinutes();
+            $(caja).val(selectedTime.getUTCHours()+":"+min);
+          }
+        },
+        inputTime: 50400,
+        format: 24,
+        setLabel: 'DEFINIR',
+        closeLabel: 'CERRAR'
+      };
+      ionicTimePicker.openTimePicker(ipObj1);
+    }
 
 	$scope.getServicios = function()
 	{
@@ -249,6 +269,26 @@ function ($scope, $stateParams,$ionicLoading,funciones,$ionicPopup,$ionicLoading
 		$("#form"+dataSel).fadeIn();
 		$("#formCaja").val(dataSel);
 	}
+
+
+	$scope.compileAngularElement = function(elSelector) 
+	{
+	    var elSelector = (typeof elSelector == 'string') ? elSelector : null ;  
+	        // The new element to be added
+	    if (elSelector != null ) {
+	        var $div = $( elSelector );
+
+	            // The parent of the new element
+	            var $target = $("[ng-app]");
+
+	          angular.element($target).injector().invoke(['$compile', function ($compile) {
+	                    var $scope = angular.element($target).scope();
+	                    $compile($div)($scope);
+	                    // Finally, refresh the watch expressions in the new element
+	                    $scope.$apply();
+	                }]);
+	        }
+    }
 
 	$scope.saveSolicitud = function()
 	{
@@ -282,13 +322,13 @@ function ($scope, $stateParams,$ionicLoading,funciones,$ionicPopup,$ionicLoading
 			else
 			{
 				formCompleto 	=	true;
-				var parametros = "form="+form+"&accion=6&fecha="+fecha+"&texto="+contenidoFavor+"&usuario="+session+"&servicio="+servicio;
+				var parametros = "form="+form+"&accion=6&fecha="+fecha+"&hora="+hora+"&texto="+contenidoFavor+"&usuario="+session+"&servicio="+servicio;
 			}
 		}
 		else if(form == 2)//solo datos de origen
 		{
 			var fecha			=	$("#fecha2").val();
-			var hora			=	$("#hora").val();
+			var hora			=	$("#hora2").val();
 			var contenidoFavor	=	$("#contenidoFavor2").val();
 			var direccion1 	 	= 	$("#direccion1").val();
 			var persona1  		= 	$("#persona1").val();
@@ -297,6 +337,10 @@ function ($scope, $stateParams,$ionicLoading,funciones,$ionicPopup,$ionicLoading
 			if(fecha == "")
 			{
 				funciones.popAlert("Formulario de solicitud","Seleccione la fecha del favor",function(){},$ionicPopup);
+			}
+			else if(hora == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Seleccione la hora del favor",function(){},$ionicPopup);
 			}
 			else if(direccion1 == "")
 			{
@@ -312,13 +356,53 @@ function ($scope, $stateParams,$ionicLoading,funciones,$ionicPopup,$ionicLoading
 			}
 			else if(contenidoFavor == "")
 			{
-				funciones.popAlert("Formulario de solicitud","Especifique con detalles el favor que desea que relicemos",function(){},$ionicPopup);
+				funciones.popAlert("Formulario de solicitud","Especifique con detalles del favor que desea que relicemos",function(){},$ionicPopup);
 			}
 			else
 			{
 				formCompleto 	=	true;
-				var parametros = "form="+form+"&accion=6&fecha="+fecha+"&texto="+contenidoFavor+"&usuario="+session+"&servicio="+servicio+"&direccion1="+direccion1+"&persona1="+persona1+"&telefono1="+telefono1;
+				var parametros = "form="+form+"&accion=6&fecha="+fecha+"&hora="+hora+"&texto="+contenidoFavor+"&usuario="+session+"&servicio="+servicio+"&direccion1="+direccion1+"&persona1="+persona1+"&telefono1="+telefono1;
 			}
+		}
+		else if(form == 3)//solo datos de destino
+		{
+			var fecha			=	$("#fecha3").val();
+			var hora			=	$("#hora3").val();
+			var contenidoFavor	=	$("#contenidoFavor3").val();
+			var direccion2 	 	= 	$("#direccion2").val();
+			var persona2  		= 	$("#persona2").val();
+			var telefono2  		= 	$("#telefono2").val();
+
+			if(fecha == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Seleccione la fecha del favor",function(){},$ionicPopup);
+			}
+			else if(hora == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Seleccione la hora del favor",function(){},$ionicPopup);
+			}
+			else if(direccion2 == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Por favor escriba la dirección de destino.",function(){},$ionicPopup);
+			}
+			else if(persona2 == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Por favor escriba el nombre del contacto con el que debemos comunicarnos.",function(){},$ionicPopup);
+			}
+			else if(telefono2 == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Por favor escriba un número de teléfono de contacto.",function(){},$ionicPopup);
+			}
+			else if(contenidoFavor == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Especifique con detalles del favor que desea que relicemos",function(){},$ionicPopup);
+			}
+			else
+			{
+				formCompleto 	=	true;
+				var parametros = "form="+form+"&accion=6&fecha="+fecha+"&hora="+hora+"&texto="+contenidoFavor+"&usuario="+session+"&servicio="+servicio+"&direccion2="+direccion2+"&persona2="+persona2+"&telefono2="+telefono2;
+			}
+
 		}
 
 

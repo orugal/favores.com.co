@@ -5,10 +5,17 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives','app.services',])
+angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives','app.services','ionic-timepicker'])
 
-.config(function($ionicConfigProvider){
-  
+.config(function($ionicConfigProvider,ionicTimePickerProvider){
+  var timePickerObj = {
+      inputTime: (((new Date()).getHours() * 60 * 60) + ((new Date()).getMinutes() * 60)),
+      format: 24,
+      step: 5,
+      setLabel: 'DEFINIR',
+      closeLabel: 'CERRAR'
+    };
+    ionicTimePickerProvider.configTimePicker(timePickerObj);
 })
 
 .run(function($ionicPlatform) {

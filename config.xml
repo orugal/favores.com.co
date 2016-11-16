@@ -21,6 +21,7 @@
   <preference name="SplashScreen" value="screen"/>
   <preference name="orientation" value="portrait"/>
   <preference name="websecurity" value="disable" />
+  <preference name="StatusBarBackgroundColor" value="#2A5BA7" />
 
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>

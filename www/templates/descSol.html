@@ -21,29 +21,46 @@
 
 
       <h3 style="color:#2B5BA7">SOLICITUD NRO: {{dataSolicitud.idSolicitud}}</h3>
-      <h5>Solicitud de tipo: {{dataSolicitud.servicio}}</h5>
-      <h6>Fecha de solicitud: {{dataSolicitud.fechaSolicitud}}</h6>
-      <h6>Solicitado para el día: {{dataSolicitud.fechaFavor}}</h6>
+      <h4 style="color:#2B5BA7">Solicitud de tipo: {{dataSolicitud.servicio}}</h4>
+      <h5>Estado: {{dataSolicitud.estado}}</h5>
+      <!--<h6>Fecha de solicitud: {{dataSolicitud.fechaSolicitud}}</h6>-->
+      <h5>Fecha: {{dataSolicitud.fechaFavor}}</h5>
+      <h5>Hora: {{dataSolicitud.hora}}</h5>
+
+      <h4 ng-if="dataSolicitud.direccion1 != null " style="color:#2B5BA7">Datos de origen</h4>
+      <h5 ng-if="dataSolicitud.direccion1 != null ">Dirección: {{dataSolicitud.direccion1}}</h5>
+      <h5 ng-if="dataSolicitud.persona1 != null ">Contacto: {{dataSolicitud.persona1}}</h5>
+      <h5 ng-if="dataSolicitud.telefono1 != null ">Teléfono: {{dataSolicitud.telefono1}}</h5>
+      
+      <h4 ng-if="dataSolicitud.direccion2 != null " style="color:#2B5BA7">Datos de destino</h4>
+      <h5 ng-if="dataSolicitud.direccion2 != null ">Dirección: {{dataSolicitud.direccion2}}</h5>
+      <h5 ng-if="dataSolicitud.persona2 != null ">Contacto: {{dataSolicitud.persona2}}</h5>
+      <h5 ng-if="dataSolicitud.telefono2 != null ">Teléfono: {{dataSolicitud.telefono2}}</h5>
+
+      <h4 style="color:#2B5BA7">Descripción del servicio</h4>
       <p style="text-align: justify;">
         {{dataSolicitud.texto}} 
       </p>
 
-      <h6 style="color:#2B5BA7">DATOS DEL PRESTADOR DEL SERVICIO</h6>
-      <div class="list">
+      <h6 ng-if="dataSolicitud.prestador != null " style="color:#2B5BA7">DATOS DEL PRESTADOR DEL SERVICIO</h6>
+      <div ng-if="dataSolicitud.prestador != null " class="list">
           <a class="item item-avatar" href="#">
             <img src="img/mike.png">
             <h2>Farez Prieto</h2>
             <p>kyo20052@gmail.com</p>
           </a>
       </div>
+
       <div class="list" ng-if="dataSolicitud.costo !=0">
       <h6 style="color:#2B5BA7">COSTO DEL SERVICIO</h6>
       <h1 style="color:#2B5BA7">{{dataSolicitud.costo |currency:$:0}}</h1>
       </div>
 
       <div class="spacer" style="height: 40px;"></div>
+      <div  ng-if="dataSolicitud.costo !=0">
       <a ui-sref="menu.sERVICIOS" id="login-button1" class="button button-positive  button-block">APROBAR SERVICIO</a>
       <a ui-sref="menu.inicio" id="login-button2" class="button button-positive  button-block button-clear">RECHAZAR SERVICIO</a>
+      </div>
 
     </div>
     <div class="col col-5"></div>

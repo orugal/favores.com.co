@@ -35,6 +35,13 @@
                 <input name="fecha" id="fecha" type="date"  data-date-format="DD MMMM YYYY"/>
               </label>
               <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Hora</span>
+                <input name="hora" id="hora" type="text"/>
+              </label>
+
+              <button type="button" class="button button-positive  button-block"  ng-click="openTimePicker1('#hora')">Seleccionar hora</button>
+
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
                 <span class="input-label">Especifique los detalles del favor</span>
                 <textarea name="contenidoFavor" id="contenidoFavor" placeholder="Escriba una breve descripción" rows="5"></textarea>
               </label>
@@ -50,6 +57,12 @@
                 <span class="input-label">Fecha y hora</span>
                 <input name="fecha2" id="fecha2" type="date"  data-date-format="DD MMMM YYYY"/>
               </label>
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Hora</span>
+                <input name="hora2" id="hora2" type="text"/>
+              </label>
+
+              <button type="button" class="button button-positive  button-block"  ng-click="openTimePicker1('#hora2')">Seleccionar hora</button>
 
               <h5 style="color:#2B5BA7;text-align: center">DATOS DE ORIGEN</h5>
               <p><center>Entíendase por datos de origen aquellos que nos permiten saber a donde debemos llegar para recoger, recibir o asistir para prestar el favor.</center></p>
@@ -79,8 +92,14 @@
           <div class="forms" id="form3" style="float:left;width:100%;margin:5% 0 0 0;display:none">
               <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
                 <span class="input-label">Fecha y hora</span>
-                <input name="fecha" id="fecha" type="date"  data-date-format="DD MMMM YYYY"/>
+                <input name="fecha3" id="fecha3" type="date"  data-date-format="DD MMMM YYYY"/>
               </label>
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Hora</span>
+                <input name="hora3" id="hora3" type="text"/>
+              </label>
+
+              <button type="button" class="button button-positive  button-block"  ng-click="openTimePicker1('#hora3')">Seleccionar hora</button>
                <h5 style="color:#2B5BA7;text-align: center">DATOS DE DESTINO</h5>
               <p><center>Entíendase por datos de destino aquellos que nos permiten saber a donde debemos finalizar el favor que solicite.</center></p>
               <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
@@ -97,7 +116,7 @@
               </label>
               <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
                 <span class="input-label">Especifique los detalles del favor</span>
-                <textarea name="contenidoFavor" id="contenidoFavor" placeholder="Escriba una breve descripción" rows="5"></textarea>
+                <textarea name="contenidoFavor3" id="contenidoFavor3" placeholder="Escriba una breve descripción" rows="5"></textarea>
               </label>
               <div class="spacer" style="height: 40px;"></div>
               
