@@ -137,7 +137,7 @@ function ($scope, $stateParams,$ionicLoading,funciones,$ionicPopup,$ionicLoading
 		else
 		{
 			//procdeo a consular ajax para hacer la inserción del usuario nuevo
-			var parametros = $("#formLogin").serialize()+"&accion=2";
+			var parametros = $("#formLogin").serialize()+"&codigoCelular="+localStorage['celular']+"&accion=2";
 			funciones.consultaApi(funciones.urlAPi,parametros,function(json){
 				//realizo la validació
 				if(json.continuar == 1)
