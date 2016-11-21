@@ -127,42 +127,48 @@
           <!-- Formulario con datos y destino-->
           <div class="forms" id="form4" style="float:left;width:100%;margin:5% 0 0 0;display:none">
               <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
-                <span class="input-label">Fecha y hora</span>
-                <input name="fecha" id="fecha" type="date"  data-date-format="DD MMMM YYYY"/>
+                <span class="input-label">Fecha</span>
+                <input name="fecha4" id="fecha4" type="date"  data-date-format="DD MMMM YYYY"/>
               </label>
+              <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
+                <span class="input-label">Hora</span>
+                <input name="hora4" id="hora4" type="text"/>
+              </label>
+
+              <button type="button" class="button button-positive  button-block"  ng-click="openTimePicker1('#hora4')">Seleccionar hora</button>
 
               <h5 style="color:#2B5BA7;text-align: center">DATOS DE ORIGEN</h5>
               <p><center>Entíendase por datos de origen aquellos que nos permiten saber a donde debemos llegar para recoger, recibir o asistir para prestar el favor.</center></p>
               <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
                 <span class="input-label">Dirección</span>
-                <input type="text" name="direccion1" id="direccion1"/>
+                <input type="text" name="direccion14" id="direccion14"/>
               </label>
               <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
                 <span class="input-label">Contacto</span>
-                <input type="text" name="persona1" id="persona1"/>
+                <input type="text" name="persona14" id="persona14"/>
               </label>
               <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
                 <span class="input-label">Teléfono de contacto</span>
-                <input type="text" name="telefono1" id="telefono1"/>
+                <input type="text" name="telefono14" id="telefono14"/>
               </label>
 
               <h5 style="color:#2B5BA7;text-align: center">DATOS DE DESTINO</h5>
               <p><center>Entíendase por datos de destino aquellos que nos permiten saber a donde debemos finalizar el favor que solicite.</center></p>
               <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
                 <span class="input-label">Dirección</span>
-                <input type="text" name="direccion2" id="direccion2"/>
+                <input type="text" name="direccion24" id="direccion24"/>
               </label>
               <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
                 <span class="input-label">Contacto</span>
-                <input type="text" name="persona2" id="persona2"/>
+                <input type="text" name="persona24" id="persona24"/>
               </label>
               <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
                 <span class="input-label">Teléfono de contacto</span>
-                <input type="text" name="telefono2" id="telefono2" ng-model="telefono2"/>
+                <input type="text" name="telefono24" id="telefono24"/>
               </label>
               <label class="item item-input  item-stacked-label" style="border:none;background: #fff;margin:0 0 5% 0">
                 <span class="input-label">Especifique los detalles del favor</span>
-                <textarea name="contenidoFavor" id="contenidoFavor" placeholder="Escriba una breve descripción" rows="5"></textarea>
+                <textarea name="contenidoFavor4" id="contenidoFavor4" placeholder="Escriba una breve descripción" rows="5"></textarea>
               </label>
               <div class="spacer" style="height: 40px;"></div>
               <button type="submit" class="button button-positive  button-block">SOLICITAR FAVOR</button>

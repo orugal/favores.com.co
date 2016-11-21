@@ -404,6 +404,60 @@ function ($scope, $stateParams,$ionicLoading,funciones,$ionicPopup,$ionicLoading
 			}
 
 		}
+		else if(form == 4)//datos de origen y destino
+		{
+			var fecha			=	$("#fecha4").val();
+			var hora			=	$("#hora4").val();
+			var direccion1 	 	= 	$("#direccion14").val();
+			var persona1  		= 	$("#persona14").val();
+			var telefono1  		= 	$("#telefono14").val();
+			var direccion2 	 	= 	$("#direccion24").val();
+			var persona2  		= 	$("#persona24").val();
+			var telefono2  		= 	$("#telefono24").val();
+			var contenidoFavor	=	$("#contenidoFavor4").val();
+
+			if(fecha == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Seleccione la fecha del favor",function(){},$ionicPopup);
+			}
+			else if(hora == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Seleccione la hora del favor",function(){},$ionicPopup);
+			}
+			else if(direccion1 == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Por favor escriba la dirección de origen.",function(){},$ionicPopup);
+			}
+			else if(persona1 == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Por favor escriba el nombre del contacto con el que debemos comunicarnos.",function(){},$ionicPopup);
+			}
+			else if(telefono1 == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Por favor escriba un número de teléfono de contacto.",function(){},$ionicPopup);
+			}
+			else if(direccion2 == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Por favor escriba la dirección de destino.",function(){},$ionicPopup);
+			}
+			else if(persona2 == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Por favor escriba el nombre del contacto con el que debemos comunicarnos.",function(){},$ionicPopup);
+			}
+			else if(telefono2 == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Por favor escriba un número de teléfono de contacto.",function(){},$ionicPopup);
+			}
+			else if(contenidoFavor == "")
+			{
+				funciones.popAlert("Formulario de solicitud","Especifique con detalles del favor que desea que relicemos",function(){},$ionicPopup);
+			}
+			else
+			{
+				formCompleto 	=	true;
+				var parametros = "form="+form+"&accion=6&fecha="+fecha+"&hora="+hora+"&texto="+contenidoFavor+"&usuario="+session+"&servicio="+servicio+"&direccion1="+direccion1+"&persona1="+persona1+"&telefono1="+telefono1+"&direccion2="+direccion2+"&persona2="+persona2+"&telefono2="+telefono2;
+			}
+		}
 
 
 		//valido si el formulario está completo para el envio
